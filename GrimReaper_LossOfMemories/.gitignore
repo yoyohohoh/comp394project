@@ -13,6 +13,7 @@
 /[Aa]ssets/[Ii]nputSetting
 /[Aa]ssets/Materials
 /[Aa]ssets/Texture
+/[Aa]ssets/Imports
 /[Pp]roject[Ss]ettings
 /[Pp]ackages
 
@@ -63,16 +64,8 @@ sysinfo.txt
 
 # Builds
 *.apk
-*.aab
 *.unitypackage
-*.app
 
 # Crashlytics generated file
 crashlytics-build.properties
 
-# Packed Addressables
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
-
-# Temporary auto-generated Android Assets
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
