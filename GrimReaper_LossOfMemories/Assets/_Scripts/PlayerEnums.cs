@@ -6,5 +6,6 @@ public enum PlayerEnums
 {
     Died,
     Jump,
+    Attack
 
 }

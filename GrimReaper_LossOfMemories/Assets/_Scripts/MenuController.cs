@@ -20,13 +20,11 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
-        Debug.Log("open main menu");
         menu.SetActive(true);
     }
 
     public void CloseMenu()
     {
-        Debug.Log("close main menu");
         menu.SetActive(false);
     }
 

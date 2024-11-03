@@ -11,13 +11,12 @@ public class PlayerController : Subject
     #region Private Fields
     COMP397LABS _inputs;
     Vector2 _move;
-    Camera _camera;
-    Vector3 _camForward, _camRight;
     #endregion
     #region Serialized Fields
     [Header("Character Controller")]
     [SerializeField] CharacterController _controller;
     [Header("Joystick")]
+    [SerializeField] bool isUsingJoystick = true;
     [SerializeField] private Joystick _joystick;
     [Header("Movements")]
     [SerializeField] float _speed;
@@ -31,13 +30,10 @@ public class PlayerController : Subject
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
 
-    [Header("Respawn Locations")]
-    [SerializeField] Transform _respawn;
     #endregion
 
     void Awake()
     {
-        _camera = Camera.main;
         _controller = GetComponent<CharacterController>();
         _inputs = new COMP397LABS();
         _inputs.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
@@ -56,15 +52,14 @@ public class PlayerController : Subject
         {
             _velocity.y = -2.0f;
         }
-        _move = _joystick.Direction;
-        _camForward = _camera.transform.forward;
-        _camRight = _camera.transform.right;
-        _camForward.y = 0f;
-        _camRight.y = 0f;
-        _camForward.Normalize();
-        _camRight.Normalize();
-        Vector3 movement = (_camRight * _move.x + _camForward * _move.y) * _speed * Time.fixedDeltaTime;
+
+        if (isUsingJoystick)
+        {
+            _move = _joystick.Direction;
+        }
+        
         if (!_controller.enabled) { return; }
+        Vector3 movement = new Vector3(_move.x, 0.0f, _move.y) * _speed * Time.fixedDeltaTime;
         _controller.Move(movement);
         _velocity.y += _gravity * Time.fixedDeltaTime;
         _controller.Move(_velocity * Time.fixedDeltaTime);
@@ -75,21 +70,13 @@ public class PlayerController : Subject
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_groundCheck.position, _groundRadius);
     }
-    void Jump()
+    public void Jump()
     {
-        if (_isGrounded)
+        Debug.Log("Jump Button Pressed")
+;        if (_isGrounded)
         {
             _velocity.y = Mathf.Sqrt(_jumpHeight * -2.0f * _gravity);
             NotifyObservers(PlayerEnums.Jump);
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("death"))
-        {
-            MovePlayer(_respawn.position);
-            NotifyObservers(PlayerEnums.Died);
         }
     }
     public void MovePlayer(Vector3 position)
