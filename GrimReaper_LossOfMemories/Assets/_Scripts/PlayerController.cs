@@ -25,6 +25,7 @@ public class PlayerController : Subject
     [SerializeField] float _gravity = -30.0f;
     [SerializeField] float _jumpHeight = 3.0f;
     [SerializeField] Vector3 _velocity;
+    [SerializeField] Vector3 initialPosition;
 
     [Header("Ground Detection")]
     [SerializeField] Transform _groundCheck;
@@ -55,6 +56,7 @@ public class PlayerController : Subject
     void Start()
     {
         LevelupCharacter.SetActive(false);
+        InitiatePlayerPosition();
     }
 
     private void Update()
@@ -80,6 +82,13 @@ public class PlayerController : Subject
         _controller.Move(movement);
         _velocity.y += _gravity * Time.fixedDeltaTime;
         _controller.Move(_velocity * Time.fixedDeltaTime);
+    }
+
+    public void InitiatePlayerPosition()
+    {
+        _controller.enabled = false;
+        transform.position = initialPosition;
+        _controller.enabled = true;
     }
 
     void OnDrawGizmos()
