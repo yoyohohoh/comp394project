@@ -38,24 +38,36 @@ public class HUDController : MonoBehaviour
         switch(pickupItemAmount)
         {
             case 0:
-                item1.SetActive(true);
-                item2.SetActive(true);
-                item3.SetActive(true);
+                if(item1 != null)
+                    item1.SetActive(true);
+                if (item2 != null)
+                    item2.SetActive(true);
+                if (item3 != null)
+                    item3.SetActive(true);
                 break;
             case 1:
-                item1.SetActive(true);
-                item2.SetActive(true);
-                item3.SetActive(false);
+                if (item1 != null)
+                    item1.SetActive(true);
+                if (item2 != null)
+                    item2.SetActive(true);
+                if (item3 != null)
+                    item3.SetActive(false);
                 break;
             case 2:
-                item1.SetActive(true);
-                item2.SetActive(false);
-                item3.SetActive(false);
+                if (item1 != null)
+                    item1.SetActive(true);
+                if (item2 != null)
+                    item2.SetActive(false);
+                if (item3 != null)
+                    item3.SetActive(false);
                 break;           
             case 3:
-                item1.SetActive(false);
-                item2.SetActive(false);
-                item3.SetActive(false);
+                if (item1 != null)
+                    item1.SetActive(false);
+                if (item2 != null)
+                    item2.SetActive(false);
+                if (item3 != null)
+                    item3.SetActive(false);
                 break;
 
             default:
