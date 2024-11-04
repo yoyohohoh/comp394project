@@ -16,6 +16,7 @@ public class PlayerController : Subject
     #region Serialized Fields
     [Header("Character Controller")]
     [SerializeField] CharacterController _controller;
+
     [Header("Joystick")]
     [SerializeField] bool isUsingJoystick = true;
     [SerializeField] private Joystick _joystick;
@@ -27,6 +28,11 @@ public class PlayerController : Subject
     [SerializeField] Vector3 _velocity;
     [SerializeField] Vector3 initialPosition;
 
+    [Header("Attacks")]
+    [SerializeField] public GameObject projectilePrefab;
+    [SerializeField] public Transform spawnPoint;
+    [SerializeField] public float projectileSpeed = 10f;
+
     [Header("Ground Detection")]
     [SerializeField] Transform _groundCheck;
     [SerializeField] float _groundRadius = 0.5f;
@@ -36,7 +42,8 @@ public class PlayerController : Subject
     [Header("HUD")]
     [SerializeField] public int life = 3;
     [SerializeField] public float health = 100f;
-    [SerializeField] public GameObject LevelupCharacter;
+    [SerializeField] public GameObject levelupCharacter;
+    [SerializeField] public GameObject characterEyes;
 
     #endregion
 
@@ -47,6 +54,7 @@ public class PlayerController : Subject
         _inputs.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
         _inputs.Player.Move.canceled += context => _move = Vector2.zero;
         _inputs.Player.Jump.performed += context => Jump();
+        _inputs.Player.Fire.performed += context => Attack();
     }
 
     void OnEnable() => _inputs.Enable();
@@ -55,7 +63,7 @@ public class PlayerController : Subject
 
     void Start()
     {
-        LevelupCharacter.SetActive(false);
+        levelupCharacter.SetActive(false);
         InitiatePlayerPosition();
     }
 
@@ -98,12 +106,24 @@ public class PlayerController : Subject
     }
     public void Jump()
     {
-        Debug.Log("Jump Button Pressed")
 ;        if (_isGrounded)
         {
             _velocity.y = Mathf.Sqrt(_jumpHeight * -2.0f * _gravity);
             NotifyObservers(PlayerEnums.Jump);
         }
+    }
+
+    public void Attack()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.right * projectileSpeed;
+        }
+
+        Destroy(projectile, 2f);
     }
     public void MovePlayer(Vector3 position)
     {
@@ -119,8 +139,9 @@ public class PlayerController : Subject
 
         if(levelupItemAmount <= 0)
         {
-            LevelupCharacter.SetActive(true);
+            levelupCharacter.SetActive(true);
             this.GetComponent<MeshRenderer>().enabled = false;
+            characterEyes.SetActive(false);
             _controller.enabled = false;
             Invoke("WinGame", 5f);
         }
