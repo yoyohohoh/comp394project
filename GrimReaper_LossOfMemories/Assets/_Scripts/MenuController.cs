@@ -41,4 +41,14 @@ public class MenuController : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    public void LoseGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+    }
+
+    //public void WinGame()
+    //{
+    //    UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+    //}
 }

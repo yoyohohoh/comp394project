@@ -12,12 +12,14 @@ public class PlayerController : Subject
     COMP397LABS _inputs;
     Vector2 _move;
     #endregion
+
     #region Serialized Fields
     [Header("Character Controller")]
     [SerializeField] CharacterController _controller;
     [Header("Joystick")]
     [SerializeField] bool isUsingJoystick = true;
     [SerializeField] private Joystick _joystick;
+    
     [Header("Movements")]
     [SerializeField] float _speed;
     [SerializeField] float _gravity = -30.0f;
@@ -29,6 +31,11 @@ public class PlayerController : Subject
     [SerializeField] float _groundRadius = 0.5f;
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
+
+    [Header("HUD")]
+    [SerializeField] public int life = 3;
+    [SerializeField] public float health = 100f;
+    [SerializeField] public GameObject LevelupCharacter;
 
     #endregion
 
@@ -44,6 +51,16 @@ public class PlayerController : Subject
     void OnEnable() => _inputs.Enable();
 
     void OnDisable() => _inputs.Disable();
+
+    void Start()
+    {
+        LevelupCharacter.SetActive(false);
+    }
+
+    private void Update()
+    {
+        Levelup();
+    }
 
     void FixedUpdate()
     {
@@ -84,5 +101,33 @@ public class PlayerController : Subject
         _controller.enabled = false;
         transform.position = position;
         _controller.enabled = true;
+    }
+
+    public void Levelup()
+    {
+        GameObject[] levelupItems = GameObject.FindGameObjectsWithTag("Levelup");
+        int levelupItemAmount = levelupItems.Length;
+
+        if(levelupItemAmount <= 0)
+        {
+            LevelupCharacter.SetActive(true);
+            this.GetComponent<MeshRenderer>().enabled = false;
+            _controller.enabled = false;
+            Invoke("WinGame", 5f);
+        }
+    }
+
+    void WinGame()
+    {
+        Debug.Log("You Win!");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Levelup"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
