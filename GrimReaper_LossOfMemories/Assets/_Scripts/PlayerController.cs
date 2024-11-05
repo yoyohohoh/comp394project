@@ -53,8 +53,7 @@ public class PlayerController : Subject
         _inputs = new COMP397LABS();
         _inputs.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
         _inputs.Player.Move.canceled += context => _move = Vector2.zero;
-        _inputs.Player.Jump.performed += context => Jump();
-        _inputs.Player.Fire.performed += context => Attack();
+
     }
 
     void OnEnable() => _inputs.Enable();
@@ -83,6 +82,12 @@ public class PlayerController : Subject
         if (isUsingJoystick)
         {
             _move = _joystick.Direction;
+
+        }
+        else
+        {
+            _inputs.Player.Jump.performed += context => Jump();
+            _inputs.Player.Fire.performed += context => Attack();
         }
         
         if (!_controller.enabled) { return; }
