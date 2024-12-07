@@ -391,6 +391,10 @@ PrefabInstance:
       value: LoadGame
       objectReference: {fileID: 0}
     - target: {fileID: 2782452115701682415, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782452115701682415, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
       propertyPath: far clip plane
       value: 100
       objectReference: {fileID: 0}
@@ -404,7 +408,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2782452115701682415, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 126
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782452115701682415, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782452115701682415, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2966513795521749568, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
       propertyPath: m_IsActive
@@ -485,6 +497,10 @@ PrefabInstance:
     - target: {fileID: 4221354699478737489, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492071043434171816, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4547777202751157118, guid: 41133528ed8563f46a0d1d3d0eb3a7e3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -15317,6 +15333,10 @@ PrefabInstance:
       propertyPath: _joystick
       value: 
       objectReference: {fileID: 1145476495}
+    - target: {fileID: 2876185901200415059, guid: 16116592e5fb2e54ea46e72fa9be0766, type: 3}
+      propertyPath: isUsingJoystick
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3732431947862468822, guid: 16116592e5fb2e54ea46e72fa9be0766, type: 3}
       propertyPath: m_Lens.FieldOfView
       value: 40

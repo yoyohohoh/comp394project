@@ -9,8 +9,8 @@ public class MinimapController : MonoBehaviour
     void Start()
     {
         Camera minimapCamera = GetComponent<Camera>();
-        minimapCamera.clearFlags = CameraClearFlags.SolidColor;
-        minimapCamera.backgroundColor = Color.black;
+        //minimapCamera.clearFlags = CameraClearFlags.SolidColor;
+        //minimapCamera.backgroundColor = Color.black;
     }
 
     private void Awake()

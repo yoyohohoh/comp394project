@@ -261,7 +261,7 @@ public class PlayerController : Subject
                 if (rb != null)
                 {
                     Vector3 shootDirection = transform.localScale.x > 0 ? transform.right : -transform.right;
-                    rb.velocity = shootDirection * _projectileForce;
+                    rb.linearVelocity = shootDirection * _projectileForce;
                 }
             }
         }

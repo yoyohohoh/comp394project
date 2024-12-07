@@ -11,7 +11,7 @@ public class Projectile2 : MonoBehaviour
     void Start()
     {
         // Set initial velocity when the projectile is instantiated
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        GetComponent<Rigidbody>().linearVelocity = transform.forward * speed;
 
         // Automatically destroy the projectile after the specified lifetime
         Destroy(gameObject, lifetime);
